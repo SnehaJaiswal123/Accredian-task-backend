@@ -1,11 +1,11 @@
-const mysql=require('mysql2/promise')
+const mysql=require('mysql2')
 require('dotenv').config()
 
-const pool=mysql.createPool({
+const conn=mysql.createConnection({
     host:"localhost",
     user:"root",
     password:process.env.SQL_PASS,
     database:process.env.DB
 })
 
-module.exports=pool
+module.exports=conn

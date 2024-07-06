@@ -1,5 +1,5 @@
 const express = require('express');
-const pool=require('./config/database')
+const conn=require('./config/database')
 const referralRouter=require('./routes/referral.routes')
 const cors=require('cors')
 const app=express();
@@ -12,14 +12,15 @@ require('dotenv').config()
 
 app.use('/api/v1/referrals',referralRouter)
 
-pool.query('SELECT 1')
-.then(()=>{
-   console.log("MySQL DB connected");
-   app.listen(port,()=>{
-      console.log("App is running");
-   })
+
+conn.query('SELECT 1',(err,res)=>{
+   if(err) console.log("Error in  connecting db:",err);
+   else{
+      console.log("Db connected");
+      app.listen(port,()=>{
+         console.log("App is running");
+      })
+   }
 })
-.catch((err)=>{
-   console.log("Error in connection",err);
-})
+
 
