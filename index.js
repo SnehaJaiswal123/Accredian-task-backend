@@ -13,14 +13,15 @@ require('dotenv').config()
 app.use('/api/v1/referrals',referralRouter)
 
 
-conn.query('SELECT 1',(err,res)=>{
-   if(err) console.log("Error in  connecting db:",err);
-   else{
-      console.log("Db connected");
-      app.listen(port,()=>{
-         console.log("App is running");
-      })
-   }
+conn.query('SELECT 1')
+.then(()=>{
+     console.log("Db connected");
+     app.listen(process.env.PORT,()=>{
+      console.log("Server is running");
+     })
+})
+.catch((err)=>{
+   console.log("Error in connecting db:",err);
 })
 
 
